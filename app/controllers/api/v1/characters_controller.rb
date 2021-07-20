@@ -1,0 +1,28 @@
+module Api 
+ module V1 
+   class CharacterController < ApplicationController
+     def index
+         characters = Character.all 
+ 
+         render json: characters, status: :ok
+ 
+     end
+ 
+     def show
+ 
+     end
+
+     def update
+
+     end
+
+     def create 
+
+     end
+
+     def destroy 
+
+     end
+   end
+ end
+end
