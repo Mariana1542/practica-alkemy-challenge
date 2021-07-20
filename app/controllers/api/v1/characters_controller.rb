@@ -1,6 +1,6 @@
 module Api 
  module V1 
-   class CharacterController < ApplicationController
+   class CharactersController < ApplicationController
      def index
          characters = Character.all 
  
