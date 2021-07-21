@@ -4,6 +4,6 @@ module Api
             attributes :id,
                        :image,
                        :name 
-        
+        end
     end
 end                           
