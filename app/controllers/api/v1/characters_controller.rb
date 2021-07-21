@@ -4,7 +4,7 @@ module Api
      def index
          characters = Character.all 
  
-         render json: characters, status: :ok
+         render each_serializer: characters, status: :ok
  
      end
  
