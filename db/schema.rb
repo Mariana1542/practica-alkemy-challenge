@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_042004) do
     t.string "image_url"
     t.string "title"
     t.date "date_of_creation"
-    t.integer "stars"
+    t.integer "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["genre_id"], name: "index_movies_on_genre_id"

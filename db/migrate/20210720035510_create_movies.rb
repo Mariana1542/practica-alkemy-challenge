@@ -5,7 +5,7 @@ class CreateMovies < ActiveRecord::Migration[6.1]
       t.string :image_url
       t.string :title
       t.date :date_of_creation
-      t.integer :stars
+      t.integer :rating
 
       t.timestamps
     end

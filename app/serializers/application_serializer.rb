@@ -1,3 +1,3 @@
-class ApplicationSerializer < ActiveModel::ApplicationSerializer
+class ApplicationSerializer < ActiveModel::Serializer
     type "data"
 end
