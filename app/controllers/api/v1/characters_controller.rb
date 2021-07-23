@@ -2,7 +2,7 @@ module Api
  module V1 
    class CharactersController < ApplicationController
      def index
-         characters = Character.all 
+      #   characters = Character.all 
  
          render json: characters, each_serializer: CharacterSerializer,  status: :ok
      end
@@ -31,8 +31,35 @@ module Api
      end
 
      private
+
+     def characters
+      @characters ||= fetch_characters 
+     end
+
+     def fetch_characters 
+      chrts = Character.all
+     # chrts = chrts.for_name(name) if name 
+      chrts = chrts.for_name(age) if age 
+      chrts = chrts.for_name(weight) if weight 
+      chrts
+     end
+
+     def name 
+      params[:name]
+     end 
+
+     def age 
+      params[:age]
+     end 
+
+     def weight 
+      params[:weight]
+     end
+
+
+
        def character 
-        @character ||= Character.find(params[:id])
+        @character ||= Character.find(params[:name])
        end
 
        def creation_character_params
@@ -41,7 +68,7 @@ module Api
            :name,
            :age,
            :weight,
-           :history,
+           :history
         )
        end
 

@@ -2,13 +2,8 @@ namespace :db do
     desc "Populate local/staging data for testing purpose"
      task populate: :environment do
 
-        character_name = [
-            "Arturo", 
-            "Mickey", 
-            "Dumbo", 
-            "Alice", 
-            "Tod"
-        ]
+        character_names = ["Mickey","Dumbo","Arturo","Alice","Tod"]
+#        genre_names = ["adventure","drama","fantasy","action"]
 
         #GENRES
         adventure_genre = Genre.create!(
@@ -36,7 +31,7 @@ namespace :db do
             genre: fantasy_genre,
             image_url: "image_url_movie",
             title: "Fantasia",
-            date_of_creation: Date.current,
+            date_of_creation: "13/11/1940",
             rating: 4
         )
 
@@ -44,7 +39,7 @@ namespace :db do
             genre: drama_genre,
             image_url: "image_url_movie",
             title: "Dumbo",
-            date_of_creation: Date.current,
+            date_of_creation: "13/11/1940",
             rating: 5
         )
 
@@ -52,7 +47,7 @@ namespace :db do
             genre: drama_genre,
             image_url: "image_url_movie",
             title: "The Fox and the Hound",
-            date_of_creation: Date.current,
+            date_of_creation: "13/11/1940",
             rating: 4
         )
 
@@ -60,7 +55,7 @@ namespace :db do
             genre: adventure_genre,
             image_url: "image_url_movie",
             title: "Alice in Wonderland",
-            date_of_creation: Date.current,
+            date_of_creation: "13/11/1940",
             rating: 5
         )
 
@@ -68,21 +63,9 @@ namespace :db do
             genre: action_genre,
             image_url: "image_url_movie",
             title: "The Sword In The Stone",
-            date_of_creation: Date.current,
+            date_of_creation: "25/12/1963",
             rating: 4
         )
-
-        swordInStone = Movie.create!(
-            genre: action_genre,
-            image_url: "image_url_movie",
-            title: "The Sword In The Stone",
-            date_of_creation: Date.current,
-            rating: 4
-        )
-
-
-
-
 
         def get_movie_for(name)
             case name
@@ -93,32 +76,32 @@ namespace :db do
             when "Dumbo" 
                 Movie.find_by(title: "Dumbo")
             when "Alice"
-                Movie.find_by("Alice in Wonderland")
+                Movie.find_by(title: "Alice in Wonderland")
             when "Tod" 
                 Movie.find_by(title: "The Fox and the Hound")
             end
         end
 
-        def get_date_of_creation_for(title)
-            case title
-            when "The Sword In The Stone"
-                "25/12/1963"
-            when "Fantasia"
-                "13/11/1940"
-            when "Dumbo"
-                "29/03/2019"  
-            when "Alice in Wonderland"
-                "5/03/2010"  
-            when "The Fox and the Hound"
-                "10/07/1981" 
-            end
-        end
+#        def get_date_of_creation_for(title)
+#            case title
+ #           when "The Sword In The Stone"
+ #               "25/12/1963"
+ #           when "Fantasia"
+ #               "13/11/1940"
+ #           when "Dumbo"
+ #               "29/03/2019"  
+ #           when "Alice in Wonderland"
+ #               "5/03/2010"  
+ #           when "The Fox and the Hound"
+ #               "10/07/1981" 
+ #           end
+ #       end
 
-      # Characters
+    # Characters
 
-      character_name.count.times do |i|
-        name = character_names[i]
-        movie = get_movie_for(name)
+    character_names.count.times do |i|
+    name = character_names[i]
+    movie = get_movie_for(name)
 
         
       Character.create!(
@@ -129,7 +112,7 @@ namespace :db do
        weight: 120.5,
        history: "History"
       )
-     end
+      end
    end
 end
    
