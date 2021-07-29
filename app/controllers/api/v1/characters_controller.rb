@@ -1,34 +1,45 @@
 module Api 
  module V1 
-   class CharactersController < ApplicationController
-     def index
-      #   characters = Character.all 
- 
+   class CharactersController < ApiController
+      def index
          render json: characters, each_serializer: CharacterSerializer,  status: :ok
-     end
+      end
  
-     def show
+      def show
         character 
         render json: character, serializer: ShowCharacterSerializer::CharacterSerializer,  status: :ok 
-     end
-
-     def update
-
-     end
-
-     def create 
-      create_character = Character.new(creation_character_params)
-      create_character.movie = movie 
-      if create_character.save 
-        render json: create_character, serializer: CreateCharacterSerializer::CharacterSerializer, status: :created  
-      else
-        render json: { error: "cannot load" }, status: :unprocessable_entity
       end
-     end
 
-     def destroy 
+      def update
+        if character.update(character_params)
+          render json: character, serializer: ShowCharacterSerializer::CharacterSerializer,  status: :ok  
+        else 
+          render json: character.errors, status: :unprocessable_entity
+        end
+      end
 
-     end
+      def create 
+        create_character = Character.new(character_params) 
+        create_character.movie = movie_selection_id
+        if create_character.save    
+        render json: create_character, serializer: CreateCharacterSerializer::CharacterSerializer, status: :created  
+       else  
+         render json:  create_character.errors , status: :unprocessable_entity
+        end
+      end
+
+      def destroy 
+        @character = Character.find_by("id": params[:id])  #el find_by() returns nill si no hay
+       
+        if  @character.nil?    #
+          render json: { error: "cannot destroy, it does not exist" }, status: :unprocessable_entity
+        else  
+          character    #ahora si puedo usar find()
+          if character.destroy 
+          render json: { message: "character destroyed"}, status: :ok
+          end
+        end
+      end
 
      private
 
@@ -38,9 +49,10 @@ module Api
 
      def fetch_characters 
       chrts = Character.all
-     # chrts = chrts.for_name(name) if name 
-      chrts = chrts.for_name(age) if age 
-      chrts = chrts.for_name(weight) if weight 
+      chrts = chrts.for_movie(movie) if movie
+      chrts = chrts.for_name(name) if name 
+      chrts = chrts.for_age(age) if age 
+      chrts = chrts.for_weight(weight) if weight  
       chrts
      end
 
@@ -56,25 +68,24 @@ module Api
       params[:weight]
      end
 
+     def movie 
+      params[:movie]
+     end 
 
+     def character 
+      @character ||= Character.find(params[:id])
+     end
 
-       def character 
-        @character ||= Character.find(params[:name])
-       end
+     def character_params
+      params.require(:character).permit( :image_url, :name, :age, :weight, :history, :movie_id)
+     end
 
-       def creation_character_params
-        params.permit(
-           :image_url,
-           :name,
-           :age,
-           :weight,
-           :history
-        )
-       end
+     def movie_selection_id
+      @movie = Movie.find(params[:movie_id])
+     end
 
-       def movie
-        @movie ||= Movie.find()
-       end
+   end
+
    end
  end
-end
+

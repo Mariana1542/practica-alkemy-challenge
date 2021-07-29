@@ -173,6 +173,7 @@ DEPENDENCIES
   active_model_serializers
   bootsnap (>= 1.4.4)
   byebug
+  devise
   devise_token_auth
   listen (~> 3.3)
   mysql2 (~> 0.5)

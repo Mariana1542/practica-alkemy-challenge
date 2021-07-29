@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_042004) do
 
   create_table "characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "movie_id"
+    t.string "movie_title"
     t.string "image_url"
     t.string "name"
     t.integer "age"

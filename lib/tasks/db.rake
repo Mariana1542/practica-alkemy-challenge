@@ -3,68 +3,67 @@ namespace :db do
      task populate: :environment do
 
         character_names = ["Mickey","Dumbo","Arturo","Alice","Tod"]
-#        genre_names = ["adventure","drama","fantasy","action"]
 
         #GENRES
-        adventure_genre = Genre.create!(
+        adventure = Genre.create!(
             image_url: "image_url_genre",
             name: "adventure"
         )
 
-        drama_genre = Genre.create!(
+        drama = Genre.create!(
             image_url: "image_url_genre",
             name: "drama"
         )
 
-        fantasy_genre = Genre.create!(
+        fantasy = Genre.create!(
             image_url: "image_url_genre",
             name: "fantasy"
         )
 
-        action_genre = Genre.create!(
+        action = Genre.create!(
             image_url: "image_url_genre",
             name: "action"
         )
 
         #MOVIES
         fantasia = Movie.create!(
-            genre: fantasy_genre,
+            genre: fantasy,
             image_url: "image_url_movie",
             title: "Fantasia",
-            date_of_creation: "13/11/1940",
+            date_of_creation: "1940/11/10",
             rating: 4
         )
 
         dumbo = Movie.create!(
-            genre: drama_genre,
+            genre: drama,
             image_url: "image_url_movie",
             title: "Dumbo",
-            date_of_creation: "13/11/1940",
+            date_of_creation: "1940/11/12",
             rating: 5
         )
 
         foxAndHound = Movie.create!(
-            genre: drama_genre,
+            genre: drama,
             image_url: "image_url_movie",
             title: "The Fox and the Hound",
-            date_of_creation: "13/11/1940",
+            date_of_creation: "1940/11/13",
             rating: 4
         )
 
         aliceWonderland = Movie.create!(
-            genre: adventure_genre,
+            genre: adventure,
             image_url: "image_url_movie",
             title: "Alice in Wonderland",
-            date_of_creation: "13/11/1940",
+            date_of_creation: "1940/11/14",
             rating: 5
         )
 
         swordInStone = Movie.create!(
-            genre: action_genre,
+            genre: action,
             image_url: "image_url_movie",
             title: "The Sword In The Stone",
-            date_of_creation: "25/12/1963",
-            rating: 4
+            date_of_creation: "1963/11/15",
+            rating: 4            
         )
 
         def get_movie_for(name)
@@ -82,34 +81,52 @@ namespace :db do
             end
         end
 
-#        def get_date_of_creation_for(title)
-#            case title
- #           when "The Sword In The Stone"
- #               "25/12/1963"
- #           when "Fantasia"
- #               "13/11/1940"
- #           when "Dumbo"
- #               "29/03/2019"  
- #           when "Alice in Wonderland"
- #               "5/03/2010"  
- #           when "The Fox and the Hound"
- #               "10/07/1981" 
- #           end
- #       end
+        def get_age_for(name)
+            case name
+            when "Arturo"
+                 "10"
+            when "Mickey"
+                 "9"
+            when "Dumbo"
+                 "11"  
+            when "Alice"
+                 "11"  
+            when "Tod"
+                 "6" 
+            end
+        end
+
+        def get_weight_for(name)
+            case name
+            when "Arturo"
+                "12.5"
+            when "Mickey"
+                "6.5"
+            when "Dumbo"
+                "11.5"  
+            when "Alice"
+                "45.5"  
+            when "Tod"
+                "5.5" 
+            end
+        end
+
 
     # Characters
 
     character_names.count.times do |i|
     name = character_names[i]
     movie = get_movie_for(name)
+    age = get_age_for(name)
+    weight = get_weight_for(name)
 
         
       Character.create!(
        movie: movie,
        image_url: "image_url_character",
        name: name,
-       age: 12,
-       weight: 120.5,
+       age: age,
+       weight: weight,
        history: "History"
       )
       end

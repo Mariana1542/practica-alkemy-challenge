@@ -3,7 +3,7 @@ module Api
         class CharacterSerializer < ApplicationSerializer
             attributes :id,
                        :image_url,
-                       :name 
+                       :name                     
         end
     end
 end                           
